@@ -24,27 +24,27 @@ class dmlite::gridftp (
     $java_home = $dmlite::plugins::hdfs::params::java_home
   }
 
-  package{'dpm-dsi': ensure => present}
+  package { 'dpm-dsi':
+    ensure => present,
+  }
 
-  file {
-    '/etc/sysconfig/dpm-gsiftp':
+  file { '/etc/sysconfig/dpm-gsiftp':
       ensure  => present,
       owner   => $user,
       group   => $group,
-      content => template('dmlite/gridftp/sysconfig.erb')
+      content => template('dmlite/gridftp/sysconfig.erb'),
   }
 
   # gridftp configuration
-  file {
-    '/var/log/dpm-gsiftp':
+  file { '/var/log/dpm-gsiftp':
       ensure => directory,
       owner  => $user,
       group  => $group,
   }
-  class{'gridftp::install':}
-  class{'gridftp::config':
-    user                => "${user}",
-    group               => "${group}",
+  class{ 'gridftp::install': }
+  class{ 'gridftp::config':
+    user                => $user,
+    group               => $group,
     auth_level          => 0,
     detach              => $detach,
     disable_usage_stats => $disable_usage_stats,
@@ -58,17 +58,17 @@ class dmlite::gridftp (
     sysconfigfile       => '/etc/sysconfig/globus',
     thread_model        => 'pthread',
     data_node           => $data_node,
-    remote_nodes        => "${remote_nodes}",
+    remote_nodes        => $remote_nodes,
   }
-  exec{'remove_globus-gridftp-server_init_management':
+  exec { 'remove_globus-gridftp-server_init_management':
     command => '/sbin/chkconfig globus-gridftp-server off',
     onlyif  => '/sbin/chkconfig globus-gridftp-server'
   }
 
   include dmlite::gaiconfig
 
-  class{'gridftp::service':
-    service => 'dpm-gsiftp'
+  class { 'gridftp::service':
+    service => 'dpm-gsiftp',
   }
 }
 
