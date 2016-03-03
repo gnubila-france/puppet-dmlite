@@ -43,9 +43,8 @@ class dmlite::plugins::memcache::config (
     Class[dmlite::plugins::memcache::config] ~> Class[gridftp::service]
   }
 
-  file {
-    '/etc/dmlite.conf.d/memcache.conf':
-      ensure  => absent;
+  file { '/etc/dmlite.conf.d/memcache.conf':
+    ensure => absent,
   }
 
   if $enable_memcache {
@@ -54,13 +53,11 @@ class dmlite::plugins::memcache::config (
       group   => $group,
       mode    => '0750',
       content => template('dmlite/plugins/memcache.conf.erb'),
-      require => Package['dmlite-plugins-memcache']
+      require => Package['dmlite-plugins-memcache'],
     }
-  }
-  else {
-    file {
-      '/etc/dmlite.conf.d/zmemcache.conf':
-        ensure  => absent;
+  } else {
+    file { '/etc/dmlite.conf.d/zmemcache.conf':
+        ensure => absent,
     }
   }
 }
