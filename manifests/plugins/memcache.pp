@@ -15,20 +15,20 @@ class dmlite::plugins::memcache(
 
   Class[dmlite::plugins::memcache::install] -> Class[dmlite::plugins::memcache::config]
 
-  class{'dmlite::plugins::memcache::config':
+  class { 'dmlite::plugins::memcache::config':
     servers              => $servers,
     enable_memcache      => $enable_memcache,
     enable_memcache_cat  => $enable_memcache_cat,
     enable_memcache_pool => $enable_memcache_pool,
-    pool_size            => "${pool_size}",
-    user                 => "${user}",
-    group                => "${group}",
-    protocol             => "${protocol}",
-    posix                => "${posix}",
+    pool_size            => $pool_size,
+    user                 => $user,
+    group                => $group,
+    protocol             => $protocol,
+    posix                => $posix,
     expiration_limit     => $expiration_limit,
-    func_counter         => "${func_counter}",
+    func_counter         => $func_counter,
     local_cache_size     => $local_cache_size,
   }
-  class{'dmlite::plugins::memcache::install':}
+  class { 'dmlite::plugins::memcache::install': }
 
 }
