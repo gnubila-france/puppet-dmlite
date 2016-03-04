@@ -12,18 +12,18 @@ define dmlite::create_config (
 
   $libdir = $dmlite::params::libdir
 
-  file {"/etc/${config_file_name}.conf":
+  file { "/etc/${config_file_name}.conf":
     ensure  => present,
     owner   => $user,
     group   => $group,
     mode    => '0750',
-    content => template('dmlite/dmlite.conf.erb')
+    content => template('dmlite/dmlite.conf.erb'),
   }
 
-  file {"/etc/${config_file_name}.conf.d":
+  file { "/etc/${config_file_name}.conf.d":
     ensure => directory,
     owner  => $user,
     group  => $group,
-    mode   => '0750'
+    mode   => '0750',
   }
 }

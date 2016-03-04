@@ -18,21 +18,21 @@ class dmlite::config::head (
     Class[dmlite::config::head] ~> Class[gridftp::service]
   }
 
-  dmlite::create_config{'head_config':
+  dmlite::create_config { 'head_config':
     config_file_name => 'dmlite',   # create /etc/dmlite.conf
     user             => $user,
     group            => $group,
     enable_config    => $enable_config,
     log_level        => $log_level,
-    logcomponents    => $logcomponents
+    logcomponents    => $logcomponents,
   }
 
-  dmlite::create_config{'disk_config_http':
+  dmlite::create_config { 'disk_config_http':
     config_file_name => 'dmlite-disk',
     user             => $user,
     group            => $group,
     enable_config    => $enable_config,
     log_level        => $log_level,
-    logcomponents    => $logcomponents
+    logcomponents    => $logcomponents,
   }
 }
